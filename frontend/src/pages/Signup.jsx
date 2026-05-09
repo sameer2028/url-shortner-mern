@@ -16,7 +16,8 @@ const Signup = () => {
     setError('');
 
     try {
-      await axios.post('http://localhost:5000/signup', { email, password });
+     const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+        await axios.post(`${API_URL}/signup`, { email, password });
       alert('Account created successfully! Please log in.');
       navigate('/login'); // Redirect to login page on success
     } catch (err) {
