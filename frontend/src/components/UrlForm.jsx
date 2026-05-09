@@ -4,6 +4,7 @@ import axios from 'axios';
 import { QRCodeCanvas } from 'qrcode.react';
 import '../App.css';
 
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
 const UrlForm = () => {
   const [longUrl, setLongUrl] = useState('');
   const [shortUrl, setShortUrl] = useState('');
@@ -33,7 +34,7 @@ const navigate = useNavigate(); // <-- Add this
     try {
     const API_URL = import.meta.env.VITE_API_URL;
    const response = await axios.post(`${API_URL}/url`, { url: longUrl });
-      setShortUrl(`http://localhost:5000/${response.data.id}`);
+    setShortUrl(`${API_URL}/${response.data.id}`);
     } catch (err) {
       alert(err.response?.data?.error || 'Failed to shorten URL');
     } finally {
@@ -48,7 +49,7 @@ const navigate = useNavigate(); // <-- Add this
     const cleanId = analyticsId.split('/').pop();
 
     try {
-      const response = await axios.get(`http://localhost:5000/url/analytics/${cleanId}`);
+      const response = await axios.get(`${API_URL}/url/analytics/${cleanId}`);
       setAnalyticsData(response.data);
     } catch (err) {
       alert('Could not find analytics for that ID.');
