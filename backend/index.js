@@ -19,6 +19,7 @@ connectToMongoDB(cloudURI)
 
 app.use(express.json())
 
+app.get('/ping', (req, res) => res.send('im awake!'));
 app.post('/signup', handleUserSignup);
 app.post('/login', handleUserLogin);
 app.use("/url",urlRoute)
